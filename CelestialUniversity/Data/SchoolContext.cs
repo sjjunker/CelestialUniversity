@@ -9,9 +9,9 @@ namespace CelestialUniversity.Data
         {
         }
 
-        public DbSet<Course> Courses { get; set; } = null!;
-        public DbSet<Enrollment> Enrollments { get; set; } = null!;
-        public DbSet<Student> Students { get; set; } = null!;
+        public DbSet<Course> Courses { get; set; } = default!;
+        public DbSet<Enrollment> Enrollments { get; set; } = default!;
+        public DbSet<Student> Students { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,4 +1,6 @@
 using CelestialUniversity.Data;
+using Microsoft.AspNetCore.CookiePolicy;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -10,7 +12,34 @@ builder.Services.AddDbContext<SchoolContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddControllersWithViews();
 
+// Force HTTPS
+builder.Services.AddHttpsRedirection(options =>
+{
+    options.HttpsPort = 443;
+});
+
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.HttpOnly = true;  // Prevents client-side access (XSS protection)
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Forces cookies to be sent only over HTTPS
+    options.Cookie.SameSite = SameSiteMode.Strict; // Prevents cross-site cookie access
+});
+
 var app = builder.Build();
+
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedProto
+});
+
+app.Use(async (context, next) =>
+{
+    Console.WriteLine($"********Scheme: {context.Request.Scheme}**********"); // Should be "https"
+    Console.WriteLine($"Headers: {context.Request.Headers["X-Forwarded-Proto"]}"); // Should be "https"
+
+    await next();
+});
 
 //Seed data
 using (var scope = app.Services.CreateScope())
@@ -33,10 +62,10 @@ using (var scope = app.Services.CreateScope())
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
+    app.UseHttpsRedirection();
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthorization();
