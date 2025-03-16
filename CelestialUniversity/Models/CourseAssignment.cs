@@ -9,7 +9,11 @@ namespace CelestialUniversity.Models
     {
         public int InstructorID { get; set; }
         public int CourseID { get; set; }
+
+        [Required]
         public Instructor Instructor { get; set; }
+
+        [Required]
         public Course Course { get; set; }
     }
 }

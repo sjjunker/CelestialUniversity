@@ -23,6 +23,7 @@ namespace CelestialUniversity.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Hire Date")]
+        [Required]
         public DateTime HireDate { get; set; }
 
         [Display(Name = "Full Name")]
@@ -31,7 +32,7 @@ namespace CelestialUniversity.Models
             get { return LastName + ", " + FirstMidName; }
         }
 
-        public ICollection<CourseAssignment> CourseAssignments { get; set; }
-        public OfficeAssignment OfficeAssignment { get; set; }
+        public ICollection<CourseAssignment> CourseAssignments { get; set; } = [];
+        public OfficeAssignment? OfficeAssignment { get; set; }
     }
 }

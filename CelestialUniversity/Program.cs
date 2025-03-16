@@ -33,14 +33,6 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
     ForwardedHeaders = ForwardedHeaders.XForwardedProto
 });
 
-app.Use(async (context, next) =>
-{
-    Console.WriteLine($"********Scheme: {context.Request.Scheme}**********"); // Should be "https"
-    Console.WriteLine($"Headers: {context.Request.Headers["X-Forwarded-Proto"]}"); // Should be "https"
-
-    await next();
-});
-
 //Seed data
 using (var scope = app.Services.CreateScope())
 {
