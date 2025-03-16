@@ -1,5 +1,27 @@
+* {
+    margin: 1rem auto;
+}
+
 html {
-  font-size: 14px;
+    font-size: 14px;
+    
+}
+
+header {
+    border-top: none;
+    background-color: #8A2BE2;
+}
+
+#home-link {
+    color: #000000;
+    font-size: large;
+    text-decoration: none;
+}
+
+ul li a {
+    width: 100%;
+    color: #000000;
+    text-decoration: none;
 }
 
 @media (min-width: 768px) {
@@ -18,7 +40,13 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: black;
+    color: #F5F3FF;
+}
+
+footer {
+    color: #F5F3FF;
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
@@ -28,4 +56,13 @@ body {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
+}
+
+div {
+    border-radius: 1rem;
+    margin: 1rem;
+}
+
+main #mytable {
+    background-color: #00FF7F;
 }
